@@ -1,22 +1,34 @@
 function validateName(name) {
-  return typeof name === 'string' && name.trim().length > 0;
+  if (typeof name !== 'string' || name.trim().length === 0) {
+    throw new Error('Name is required');
+  }
+  return true;
 }
 
 function validateEmail(email) {
-  return typeof email === 'string' && email.trim().length > 0;
+  if (typeof email !== 'string' || email.trim().length === 0) {
+    throw new Error('Email is required');
+  }
+
+  if (!email.includes('@')) {
+    throw new Error('Email must contain @ symbol');
+  }
+
+  return true;
 }
 
 function validatePhone(phone) {
-  return typeof phone === 'string' && phone.trim().length > 0;
+  if (typeof phone !== 'string' || phone.trim().length === 0) {
+    throw new Error('Phone is required');
+  }
+  return true;
 }
 
-function validateContact(contact) {
-  return (
-    contact &&
-    validateName(contact.name) &&
-    validateEmail(contact.email) &&
-    validatePhone(contact.phone)
-  );
+function validateContact(name, email, phone) {
+  validateName(name);
+  validateEmail(email);
+  validatePhone(phone);
+  return true;
 }
 
 module.exports = {
